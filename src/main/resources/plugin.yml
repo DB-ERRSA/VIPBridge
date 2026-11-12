@@ -1,0 +1,64 @@
+name: VIPBridge
+version: ${version}
+main: com.errsa.vipbridge.VIPBridgePlugin
+api-version: "1.21"
+author: ERRSA
+description: VIP rewards, protected token redemption, HeadDB browser and deliveries.
+
+depend:
+  - FancyNpcs
+  - FancyHolograms
+  - ImageFrame
+softdepend:
+  - LuckPerms
+  - Vault
+  - Essentials
+  - floodgate
+  - PlaceholderAPI
+  - HeadDB
+
+commands:
+  vip:
+    description: View VIP benefits and available reward commands. Staff can administer VIP rewards.
+    usage: /vip [help|guide|reload|grant|token|mailbox|statue|catchphrase|player]
+    permission: vipbridge.vip.use
+    permission-message: You do not have permission to use VIPBridge.
+  tokens:
+    description: Open your virtual token mailbox and reward selection menu.
+    usage: /tokens
+    permission: vipbridge.tokens.use
+  tokenshop:
+    description: Purchase virtual reward tokens using server economy funds.
+    usage: /tokenshop
+    permission: vipbridge.tokens.shop
+  headsearch:
+    description: Open the online HeadDB catalog link and find a head ID.
+    usage: /headsearch
+    permission: vipbridge.heads.search
+  headredeem:
+    description: Redeem a HeadDB catalog ID for one available HeadDB token.
+    usage: /headredeem <id>
+    permission: vipbridge.heads.redeem
+
+permissions:
+  vipbridge.vip.use:
+    description: View VIP information and access public VIP commands.
+    default: true
+  vipbridge.tokens.use:
+    description: Open your own token mailbox and view available rewards.
+    default: true
+  vipbridge.tokens.shop:
+    description: Buy reward tokens from the Token Shop.
+    default: true
+  vipbridge.tokens.deliveries:
+    description: Access your own protected item deliveries mailbox.
+    default: true
+  vipbridge.heads.search:
+    description: Search the VIPBridge head browser and open the online catalog link.
+    default: true
+  vipbridge.heads.redeem:
+    description: Redeem HeadDB tokens for valid catalog heads.
+    default: true
+  vipbridge.admin:
+    description: Perform privileged VIP management, token grants and staff mailbox commands.
+    default: op

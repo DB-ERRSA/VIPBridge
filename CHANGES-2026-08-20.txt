@@ -1,0 +1,17 @@
+VIPBridge cleanup
+- Reduced public commands to /vip, /tokens, and /tokenshop.
+- Kept /vip heads and /vip mailbox as focused reward destinations.
+- Removed duplicate aliases and duplicate buy/redeem command paths.
+- Removed root player permission gates; /vip and /vip guide work for normal players.
+- Staff functionality remains protected by vipbridge.admin.
+- Added configurable server-wide sound to the VIP announcement. Offline VIP grants announce/sound when that VIP joins.
+- First VIP onboarding still shows exact token counts and clickable actions.
+- Existing guide command references migrate to the canonical commands without replacing custom wording.
+
+BEDROCK COPYABLE WEBSITE LINKS
+- Java request tokens now show a true clickable OPEN WEBSITE chat action.
+- Bedrock/Floodgate request tokens open a CustomForm with the website URL pre-filled in a selectable text input.
+- Token ID is also pre-filled in a second selectable text input.
+- Bedrock still receives the plain URL and Token ID in chat as a configurable fallback.
+- Per-token submission instructions and Bedrock field labels are configurable in config.yml.
+- Floodgate/Cumulus integration uses reflection, so Floodgate remains optional at runtime.

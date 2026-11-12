@@ -1,0 +1,16 @@
+Bedrock HeadDB browser update
+
+- Java players keep the existing HeadDB inventory GUI.
+- Bedrock/Floodgate players now use native forms instead of Steve-head inventory previews.
+- Bedrock home screen supports HeadDB categories and search-by-name.
+- Results are alphabetized and paged 20 at a time.
+- Results show name + HeadDB ID.
+- Attempts to decode the HeadDB texture into a textures.minecraft.net URL and use it as the Bedrock form button preview.
+- Confirmation screen is shown before consuming 1 HeadDB token.
+- Redeeming still uses the same HeadDB item/token/delivery logic as Java.
+- /tokens remains the universal entry point.
+- Fixed old internal "rewards tokens" navigation to canonical /tokens.
+- Changed overflow wording from Item Mailbox to Deliveries.
+
+Config toggle:
+headdb.bedrock-form-browser.enabled: true

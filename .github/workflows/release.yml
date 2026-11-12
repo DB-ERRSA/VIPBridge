@@ -1,0 +1,60 @@
+name: Release VIPBridge
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: Build and verify
+        run: ./gradlew --no-daemon clean build
+      - name: Stage deployable plugin JAR
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          shopt -s nullglob
+          files=(build/libs/VIPBridge-*.jar)
+          deployable=()
+          for file in "${files[@]}"; do
+            name="${file##*/}"
+            case "$name" in
+              original-*|*-sources.jar|*-javadoc.jar|*-plain.jar|*-shaded.jar|*-dev.jar) continue ;;
+            esac
+            deployable+=("$file")
+          done
+          if (( ${#deployable[@]} != 1 )); then
+            printf 'Expected 1 deployable JAR; found %s\n' "${#deployable[@]}" >&2
+            printf '%s\n' "${deployable[@]}" >&2
+            exit 1
+          fi
+          cp "${deployable[0]}" dist/
+          (cd dist && sha256sum *.jar > SHA256SUMS.txt)
+          ls -lh dist/
+      - name: Publish GitHub Release on tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh release create "$GITHUB_REF_NAME" dist/*.jar dist/SHA256SUMS.txt \
+            --title "VIPBridge $GITHUB_REF_NAME" --generate-notes --verify-tag
+      - name: Upload manual release candidate
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: VIPBridge-candidate-${{ github.run_number }}
+          path: dist/*
+          if-no-files-found: error

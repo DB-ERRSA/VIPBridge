@@ -1,0 +1,16 @@
+VIPBridge music reliability + Deliveries navigation
+
+- Music approval no longer fails because the approving staff member disconnects.
+- After the MP3 download, VIPBridge can use the approving player or another online vipbridge.admin/op player only to START URLCustomDiscs.
+- Once started, VIPBridge independently watches URLCustomDiscs API success/error output.
+- On API success, VIPBridge reconstructs the canonical generated disc from URLCustomDiscs/discs.json and delivers it directly to the buyer's Deliveries.
+- Only a URLCustomDiscs/API failure, download failure, no eligible runner before timeout, or capture timeout resets the token to UNUSED.
+- Automated VIPBridge music jobs are serialized to avoid assigning an unkeyed URLCustomDiscs API callback to the wrong token.
+- New retry attempts clear stale processing-reset/error metadata before showing PROCESSING.
+- Download failures now explicitly say the token returned to UNUSED and include the live configured size/error reason.
+- Deliveries now has a Back to Token Mailbox arrow in the last slot for normal players.
+
+New/updated config:
+  music.url-custom-discs.runner-wait-timeout-seconds: 300
+  music.url-custom-discs.metadata-file: plugins/URLCustomDiscs/discs.json
+  music.url-custom-discs.independent-capture: true

@@ -1,0 +1,28 @@
+VIPBridge cleanup - 2026-08-21
+
+PLAYER / BEDROCK
+- /tokens and /tokenshop are Java-client-only by default.
+- Bedrock players receive a configurable Java-only notice; token balances remain stored.
+- Bedrock VIP onboarding no longer advertises unusable clickable token GUI buttons.
+- Daily Bedrock token reminders use the Java-only notice instead of a broken GUI link.
+
+TOKEN MAILBOX / SHOP
+- Catchphrase entry appears only while the player has an UNUSED catchphrase token.
+  Non-VIP players do not see it, and it disappears after redemption.
+- Custom Map, Music Disc, Catchphrase, and HeadDB descriptions are richer and configurable.
+- Music token/shop icon hides vanilla jukebox metadata such as "C418 - cat" when supported.
+- Shop prices remain fully config-driven under shop.prices and take effect after /vip reload.
+
+MUSIC PROCESSING
+- Added console stage/progress logging per token.
+- Logs HTTP response, file size, progress, URLCustomDiscs dispatch, capture, delivery and failures.
+- Added configurable connect/read/total-download/capture timeouts.
+- Added configurable max-file-size-mb and progress-log-percent.
+- Added configurable reset-processing-on-startup. Orphaned CUSTOM_MUSIC PROCESSING tokens
+  are reset to UNUSED after a restart because the async processing job cannot survive shutdown.
+- music.url-custom-discs.mode is now actually read from config instead of being hardcoded to mono.
+
+CONFIG MIGRATION
+- Existing config values are preserved.
+- Old max-mp3-size-mb migrates to max-file-size-mb.
+- Obsolete Bedrock copy-link / HeadDB form-browser config is removed while Java-only token GUIs are used.

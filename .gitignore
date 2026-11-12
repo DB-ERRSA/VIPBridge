@@ -1,0 +1,33 @@
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Build outputs
+**/target/
+**/build/
+.gradle/
+.kotlin/
+out/
+dist/
+
+# Local runtime data and logs
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+*.log.*
+.env
+.env.*
+**/secrets.yml
+**/secrets.properties
+*.key
+*.pem
+.DS_Store
+
+# Keep Gradle wrapper and source directories tracked
+!gradle/wrapper/gradle-wrapper.jar

@@ -1,0 +1,67 @@
+enabled: true
+provider: "FancyNpcs"
+
+bedrock-fallback-skin: "" # blank = FancyNpcs default skin; avoids Mojang lookups for Floodgate players
+
+holograms:
+  enabled: true
+  name-format: "vip_holo_{safe_player}"
+  line-format: "&l{player}"
+  background:
+    enabled: true
+    red: 0
+    green: 0
+    blue: 0
+    alpha: 0
+  text-shadow: true
+  billboard: "CENTER"
+
+catchphrases:
+  trigger: "ANY_CLICK"
+  message-format: "&6{player}&8: &f\"{catchphrase}\""
+
+locations:
+  s1:
+    world: "world"
+    x: -395.5
+    y: 129.0
+    z: -216.5
+    yaw: 180.0
+    pitch: 0.0
+    taken: false
+    owner: ""
+    owner-uuid: ""
+    npc-id: ""
+    hologram-id: ""
+    catchphrase: ""
+    created: false
+
+  s2:
+    world: "world"
+    x: -392.5
+    y: 129.0
+    z: -216.5
+    yaw: 180.0
+    pitch: 0.0
+    taken: false
+    owner: ""
+    owner-uuid: ""
+    npc-id: ""
+    hologram-id: ""
+    catchphrase: ""
+    created: false
+
+  s3:
+    world: "world"
+    x: -389.5
+    y: 129.0
+    z: -216.5
+    yaw: 180.0
+    pitch: 0.0
+    taken: false
+    owner: ""
+    owner-uuid: ""
+    npc-id: ""
+    hologram-id: ""
+    catchphrase: ""
+    created: false

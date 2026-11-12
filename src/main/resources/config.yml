@@ -1,0 +1,169 @@
+vip:
+  luckperms-command: "lp user {player} promote main"
+  prevent-duplicate-grants: true
+
+  rewards:
+    custom-map-tokens: 2
+    custom-music-tokens: 2
+    # 1 HeadDB token = 1 head selected from HeadDB.
+    head-db-tokens: 1
+    catchphrase-tokens: 1
+    statue: true
+
+  reset-commands:
+    enabled: true
+    commands:
+      - "lp user {player} demote main"
+
+forms:
+  custom-map:
+    enabled: true
+    url: "https://forms.fillout.com/t/8zA8QVHBHcus"
+    instructions: "Open the submission form and include your Token ID with your map request."
+
+  custom-music:
+    enabled: true
+    url: "https://forms.fillout.com/t/vRjgeuaqFtus"
+    instructions: "Open the submission form and include your Token ID with your music request."
+
+  catchphrase:
+    enabled: true
+    url: "https://forms.fillout.com/t/2QZWr2U21Jus"
+    instructions: "Open the submission form and include your Token ID with your catchphrase request."
+
+tokens:
+  # Legacy physical-token appearance is kept only so old token items can be
+  # recognized/migrated. New tokens are virtual and stay in the Token Mailbox.
+  item:
+    material: "PAPER"
+    custom-map-name: "&bCustom Map Token"
+    custom-music-name: "&dMusic Disc Token"
+    catchphrase-name: "&6Catchphrase Token"
+    head-db-name: "&aHeadDB Token"
+    lore:
+      - "&7Legacy token item"
+      - ""
+      - "&fToken ID: &e{token_id}"
+      - "&fType: &e{type}"
+      - "&fStatus: &aUNUSED"
+
+client-detection:
+  bedrock-prefix: "."
+
+# The token GUIs rely on Java inventory/resource behavior that does not translate
+# reliably through Geyser. Bedrock players receive a clear notice instead of a
+# broken/partial menu. Their saved tokens are never consumed.
+client-support:
+  java-only-token-guis: true
+  bedrock-message: "&eThe Token Mailbox, Token Shop, and custom reward redemption are currently supported on the &fJava Edition client &eonly. &7Your tokens remain safely saved and can be used whenever you join on Java."
+
+# Everything players see in /tokens can be tuned here without recompiling.
+token-mailbox:
+  descriptions:
+    custom-map:
+      - "&7Turn your favorite image into a"
+      - "&7one-of-a-kind map for your builds."
+    custom-music:
+      - "&7Bring a song into the server as"
+      - "&7your own custom playable music disc."
+    catchphrase:
+      - "&7Give your VIP statue some personality."
+      - "&7Choose the line it says to visitors."
+    head-db:
+      - "&7Pick a decorative head from HeadDB."
+      - "&71 token unlocks 1 head of your choice."
+
+shop:
+  enabled: true
+  # Change prices here at any time, then run /vip reload.
+  prices:
+    custom-map: 5000
+    custom-music: 7500
+    head-db: 1000
+  display:
+    custom-map: "&bCustom Map Token"
+    custom-music: "&dMusic Disc Token"
+    head-db: "&aHeadDB Token"
+
+# Finished physical rewards are collected from the Deliveries button inside /tokens.
+mailbox:
+  size: 27
+
+# First VIP join + reusable /vip guide. Guide text is editable here.
+onboarding:
+  enabled: true
+  title: "&6&lVIP QUICK GUIDE"
+  lines:
+    - "&fVIP rewards use the same token system available to everyone."
+    - "&e/tokens &7- View tokens, redeem rewards, and collect deliveries."
+    - "&e/tokenshop &7- Buy more tokens with server money."
+  bedrock-lines:
+    - "&eCustom reward tokens are currently redeemable on Java Edition only."
+    - "&7Your VIP tokens stay safely saved until you join using Java."
+  footer: "&7Run &e/vip &7any time to see this guide again."
+
+shoutouts:
+  enabled: true
+  broadcast-format: "&6&lVIP &8» &e{player} &fhas become a VIP!"
+  bossbar-format: "&e{player} &6just became VIP!"
+  bossbar-seconds: 8
+  # Played to everyone when the VIP announcement is actually delivered.
+  # Offline grants wait until that VIP joins.
+  sound:
+    enabled: true
+    sound: "UI_TOAST_CHALLENGE_COMPLETE"
+    volume: 1.0
+    pitch: 1.0
+
+sounds:
+  # Token shop feedback. Failure intentionally uses the Enderman teleport sound.
+  token-purchase-success:
+    enabled: true
+    sound: "ENTITY_EXPERIENCE_ORB_PICKUP"
+    volume: 1.0
+    pitch: 1.2
+  token-purchase-failure:
+    enabled: true
+    sound: "ENTITY_ENDERMAN_TELEPORT"
+    volume: 0.7
+    pitch: 0.8
+
+music:
+  url-custom-discs:
+    audio-folder: "plugins/URLCustomDiscs/audio_to_send"
+    # URLCustomDiscs 2.7.2 accepts MP3 input. This is the maximum downloaded MP3 size.
+    max-file-size-mb: 12
+    allowed-extension: ".mp3"
+    max-url-length: 224
+    mode: "mono"
+
+    # Network / processing controls.
+    connect-timeout-seconds: 15
+    read-timeout-seconds: 60
+    download-timeout-seconds: 180
+    capture-timeout-seconds: 300
+    delete-source-after-delivery: true
+    # URLCustomDiscs requires an in-game player to start its create command, but that
+    # player may disconnect immediately afterward. VIPBridge watches the plugin output itself.
+    runner-wait-timeout-seconds: 300
+    metadata-file: "plugins/URLCustomDiscs/discs.json"
+    independent-capture: true
+    # A processing job cannot survive a server restart. Reset orphaned jobs so tokens do not stay stuck.
+    reset-processing-on-startup: true
+
+    # Console visibility. 25 logs approximately 25%, 50%, 75%, 100%.
+    console-logging: true
+    progress-log-percent: 25
+
+    create-command: "customdisc create {file_name} {disc_name} {mode}"
+
+maps:
+  imageframe:
+    width: 1
+    height: 1
+    allowed-extensions:
+      - ".png"
+      - ".jpg"
+      - ".jpeg"
+      - ".webp"
+    max-url-length: 224

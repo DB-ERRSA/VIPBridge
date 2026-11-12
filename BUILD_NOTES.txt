@@ -1,0 +1,11 @@
+VIPBridge 0.1.0
+
+Build:
+  Windows: gradlew.bat clean build
+  Linux/macOS: ./gradlew clean build
+
+Output:
+  build/libs/VIPBridge-0.1.0.jar
+
+Java 21 / Paper 1.21.4.
+HeadDB and ImageFrame jars in libs/ are compile-only dependencies; server plugins must still be installed normally.
